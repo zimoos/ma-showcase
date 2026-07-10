@@ -1,7 +1,9 @@
 {
   "private": true,
   "scripts": {
-    "verify:reaction": "node demos/02-reaction-time/verify.mjs"
+    "verify:reaction": "node demos/02-reaction-time/verify.mjs",
+    "publish:check": "node social/publish-flow.mjs social/releases/reaction-time.json --check",
+    "publish:brief": "node social/publish-flow.mjs social/releases/reaction-time.json"
   },
   "devDependencies": {
     "playwright": "1.59.1"
