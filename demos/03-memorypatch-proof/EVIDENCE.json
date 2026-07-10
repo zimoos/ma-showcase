@@ -1,0 +1,53 @@
+{
+  "run_kind": "real_local_ma_agora_mcp_stdio",
+  "source_kind": "synthetic_public_demo_only",
+  "model": "qwen3.6-35b-a3b-q4",
+  "recorded_at": "2026-07-10T21:08:55.981Z",
+  "before": {
+    "memory_status": "unmounted",
+    "active_memory_patch_ids": []
+  },
+  "source_fact": "Aurora演示项目的发布原则是先给出可复现的验证证据，再给出宣传结论。",
+  "patch_1": {
+    "id": "memory-intake-memintake_6a8b509a0493",
+    "source_id": "session-chat_d6511819dc88-increment-0-2-memintake_6a8b509a0493",
+    "version": "0.0.0-6a8b509a0493",
+    "context_tokens_used_by_patch": 0,
+    "patch_size_kb": 54.139,
+    "strict_targets": "3/3",
+    "boundaries": "9/9"
+  },
+  "recall_after_patch_1": "Aurora演示项目的发布原则是先给出可复现的验证证据，再给出宣传结论。",
+  "patch_2": {
+    "id": "memory-intake-memintake_cf3728f72afe",
+    "source_id": "session-chat_d6511819dc88-increment-0-2-memintake_cf3728f72afe",
+    "version": "0.0.0-cf3728f72afe",
+    "previous_patch_id": "memory-intake-memintake_6a8b509a0493",
+    "context_tokens_used_by_patch": 0,
+    "patch_size_kb": 54.016,
+    "strict_targets": "3/3",
+    "boundaries": "9/9"
+  },
+  "rollback": {
+    "active_memory_patch_ids": [
+      "memory-intake-memintake_6a8b509a0493"
+    ],
+    "recall": "Aurora演示项目的发布原则是先给出可复现的验证证据，再给出宣传结论。"
+  },
+  "latest_runtime_window": [
+    {
+      "role": "user",
+      "content": "Aurora演示项目的发布原则是什么？只回答原则。"
+    },
+    {
+      "role": "assistant",
+      "content": "Aurora演示项目的发布原则是先给出可复现的验证证据，再给出宣传结论。"
+    }
+  ],
+  "acceptance": {
+    "two_distinct_source_ids": true,
+    "patch_2_has_patch_1_as_parent": true,
+    "metadata_verified_mount": true,
+    "metadata_verified_rollback": true
+  }
+}

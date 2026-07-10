@@ -19,6 +19,7 @@ This repository does not use synthetic agent output or staged completion claims.
 | --- | --- | --- |
 | [01 Terminal Status](demos/01-terminal-status/) | MA creates and verifies a standalone UI artifact through its filesystem tool. | `artifact/index.html` |
 | [02 Reaction Time](demos/02-reaction-time/) | MA builds a browser interaction, then a real browser test reaches its result state. | `artifact/index.html` |
+| [03 Versioned MemoryPatch](demos/03-memorypatch-proof/) | MA drives a local synthetic-rule memory through metadata-verified mount, a new version, and rollback. | `EVIDENCE.json` |
 
 ### 02 Reaction Time
 
@@ -29,6 +30,8 @@ The artifact, browser recording, and verifier are committed together. The GIF sh
 ## Shareable Evidence
 
 [Vertical short video](social/ma-agora-reaction-short.mp4) packages the actual tool-call evidence and browser result into an 11-second 1080x1920 clip. It is ready for YouTube Shorts and Douyin; [posting copy and the reproducible render script](social/) are included.
+
+[Versioned MemoryPatch evidence](demos/03-memorypatch-proof/) adds a bounded local-memory proof: two synthetic rules became two auditable patch versions, then the active profile rolled back to the first version. Its [vertical short](social/ma-memorypatch-proof-short.mp4), images, raw evidence, and rerun script are committed together. It deliberately does not claim unlimited context or general cloud-model parity.
 
 ## Run Locally
 
@@ -42,6 +45,10 @@ AGORA_ROOT=/path/to/agora bash demos/02-reaction-time/run.sh
 npm ci
 npx playwright install chromium
 npm run verify:reaction
+
+# Verify the recorded MemoryPatch evidence and render its social assets
+npm run verify:memorypatch
+npm run render:memorypatch
 ```
 
 The replay scripts exit successfully only after the generated file is present and non-empty. The reaction-time verifier also proves that the artifact reaches a result screen after a real click sequence.

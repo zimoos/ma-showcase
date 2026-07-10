@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MA MemoryPatch Short</title>
+    <style>
+      :root { color: #171717; font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      * { box-sizing: border-box; }
+      body { background: #f7f3e8; height: 1920px; margin: 0; overflow: hidden; width: 1080px; }
+      main { display: flex; flex-direction: column; height: 100%; justify-content: space-between; padding: 116px 82px 104px; }
+      .kicker { color: #0f766e; font-size: 30px; font-weight: 900; letter-spacing: 1.5px; margin: 0; }
+      h1 { font-size: 82px; line-height: 1.08; margin: 28px 0 0; }
+      .lead { color: #4b5563; font-size: 36px; line-height: 1.42; margin: 30px 0 0; }
+      .card { background: #fffdf7; border: 3px solid #171717; border-radius: 8px; box-shadow: 14px 14px 0 #f59e0b; padding: 38px; }
+      .card-label { color: #57534e; font-size: 25px; font-weight: 900; letter-spacing: 1px; }
+      .big { font-size: 54px; font-weight: 900; line-height: 1.15; margin: 22px 0; }
+      .rule { background: #ecfdf5; border: 2px solid #34d399; border-radius: 6px; font-size: 31px; line-height: 1.42; padding: 24px; }
+      .states { display: grid; gap: 13px; grid-template-columns: 1fr 56px 1fr; margin-top: 24px; }
+      .state { border: 2px solid #d4d4d4; border-radius: 6px; min-height: 168px; padding: 19px; }
+      .state b { display: block; font-size: 35px; line-height: 1.15; margin-top: 14px; }
+      .state small { color: #57534e; font-size: 19px; font-weight: 800; }
+      .old { background: #fff1f2; border-color: #fb7185; }
+      .new { background: #ecfdf5; border-color: #34d399; }
+      .back { background: #eff6ff; border-color: #60a5fa; }
+      .arrow { align-self: center; color: #b45309; font-size: 46px; font-weight: 900; text-align: center; }
+      .metrics { display: grid; gap: 13px; grid-template-columns: repeat(3, 1fr); margin-top: 26px; }
+      .metric { background: #f5f5f4; border-radius: 6px; padding: 18px; }
+      .metric b { display: block; font-size: 40px; }
+      .metric span { color: #57534e; font-size: 18px; }
+      .footer { border-top: 2px solid #d6d3d1; color: #44403c; font-size: 26px; line-height: 1.35; padding-top: 30px; }
+      .footer strong { color: #0f766e; }
+    </style>
+  </head>
+  <body>
+    <main id="content"></main>
+    <script>
+      const scene = new URLSearchParams(location.search).get("scene") || "intro";
+      const scenes = {
+        intro: {
+          kicker: "MA / LOCAL AGENT",
+          title: "本地 AI 每次开新会话，都像第一天入职",
+          lead: "它不是完全不会做。它只是又得重新学你的项目规则、测试标准和交付方式。",
+          card: `<div class="card-label">THE REAL QUESTION</div><div class="big">经验能不能不住在下一轮 prompt 里？</div><div class="rule">这次用两条虚构项目规则，在本机做了一次可验证的内化和回滚。</div>`,
+          footer: "不是无限上下文。是<strong>可验证、可回退</strong>的项目经验。"
+        },
+        mount: {
+          kicker: "MA / LIVE EVIDENCE",
+          title: "先不信模型说“我记住了”",
+          lead: "普通对话开始时，memory 状态是 unmounted。内化完成后，响应 metadata 才报告已挂载的 patch。",
+          card: `<div class="card-label">RUNTIME METADATA</div><div class="states"><div class="state old"><small>FIRST TURN</small><b>unmounted</b></div><div class="arrow">-></div><div class="state new"><small>PATCH 1</small><b>mounted</b></div></div><div class="metrics"><div class="metric"><b>0</b><span>host context tokens</span></div><div class="metric"><b>54 KB</b><span>patch artifact</span></div><div class="metric"><b>3/3</b><span>strict targets</span></div></div>`,
+          footer: "原始规则不在最终运行窗口里，模型仍准确答出规则。"
+        },
+        rollback: {
+          kicker: "MA / VERSION CONTROL",
+          title: "经验也该像代码一样能回退",
+          lead: "第二条规则产生了第二个 patch，且记录了第一个 patch 为父版本。随后 MA 实际回退到 patch 1。",
+          card: `<div class="card-label">PATCH LINEAGE</div><div class="states"><div class="state new"><small>PATCH 1</small><b>source A</b></div><div class="arrow">-></div><div class="state new"><small>PATCH 2</small><b>source B</b></div></div><div class="states"><div class="state back"><small>ROLLBACK</small><b>patch 1 active</b></div><div class="arrow">-></div><div class="state back"><small>METADATA</small><b>verified</b></div></div>`,
+          footer: "两个 intake 各有独立 source id。版本切换不靠改提示词伪装。"
+        },
+        outro: {
+          kicker: "MA / OPEN SOURCE",
+          title: "让本地模型成为熟练工，而不是每天重新入职",
+          lead: "MA 负责在仓库里做事、运行验证、留下证据。可选的本地记忆让批准过的工作习惯有机会变成版本化资产。",
+          card: `<div class="card-label">TRY TO BREAK IT</div><div class="big">带一个真实任务，和一条你不想让它再忘记的项目规则。</div><div class="rule">github.com/zimoos/my-agent</div>`,
+          footer: "本次证据只验证两条合成规则。完整边界和复跑脚本都在 MA Showcase。"
+        }
+      };
+      const current = scenes[scene] || scenes.intro;
+      document.querySelector("#content").innerHTML = `<section><p class="kicker">${current.kicker}</p><h1>${current.title}</h1><p class="lead">${current.lead}</p></section><section>${current.card}</section><p class="footer">${current.footer}</p>`;
+    </script>
+  </body>
+</html>

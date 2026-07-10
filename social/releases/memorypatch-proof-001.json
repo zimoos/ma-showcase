@@ -1,0 +1,31 @@
+{
+  "id": "memorypatch-proof-001",
+  "marketing": {
+    "audience": "使用本地模型的独立开发者和小团队：他们不缺一个能写几行代码的聊天框，缺的是一个不会每次重新认识项目、又能被验收和回退的本地 Agent。",
+    "title_hook": "把“本地模型每次开新会话都像第一天入职”这个高频痛点，转成可看见的反差：不是让它背更长提示词，而是用真实 metadata 证明一条规则被内化、版本化和回退。",
+    "retention_proof": "前三屏依次给出未挂载状态、patch 挂载后的准确回答、第二个版本回退到第一个版本；正文同时给出 source id、54KB patch、0 host-context-token 记录和证据仓库，并明确只验证两条合成规则。",
+    "comment_prompt": "你的本地 Agent 最该停止忘记的那一条项目规则是什么？请写成“规则 + 它上次忘了以后造成的结果”，我会把最典型的案例转成可复现的验收任务。",
+    "star_conversion": "证据之后给出 MA 主仓和可重跑的 MemoryPatch demo。CTA 是邀请读者拿真实项目规则来挑战 MA，而不是索要 Star；Star 应来自他们确认这个问题真的被解决。"
+  },
+  "assets": {
+    "cover": "social/assets/memorypatch-proof-cover.png",
+    "body_images": [
+      "social/assets/memorypatch-proof-mount.png",
+      "social/assets/memorypatch-proof-rollback.png"
+    ],
+    "short_video": "social/ma-memorypatch-proof-short.mp4"
+  },
+  "platforms": {
+    "zhihu": {
+      "title": "本地 AI 每次开新会话，都像第一天入职",
+      "body": "我不相信“无限上下文”这类宣传。上下文总有窗口，真正的问题是：本地模型每次打开一个旧项目，为什么又要重新学命名、测试标准、发布流程和你已经讲过十遍的边界？\n\n这会让本地模型看起来不够聪明。但很多时候，它不是不会做，而是没有任何可验证的方式把批准过的项目经验留在下一次任务里。\n\n我正在做的 MA，是一个在仓库里动手、运行验证、留下证据的本地优先 Coding Agent。这次没有做概念图，我用两条完全虚构的项目规则，跑了一条真实本地记忆链路。\n\n第一步，普通对话开始时，runtime metadata 显示 memory 是 unmounted。模型甚至没有接受我给出的规则。\n\n第二步，MA 通过本地 runtime 内化这条合成规则。完成后返回一个实际的 MemoryPatch id；下一次只问“发布原则是什么”，模型给出了正确答案。此时保留的运行窗口里只有这句提问和回答，原始规则没有被重新塞进这次窗口。这个 patch 的记录显示：约 54KB，host context tokens 为 0，自己的严格目标检查 3/3、边界检查 9/9。\n\n第三步，我再内化第二条规则，得到第二个 patch。它有自己的 source id，并把第一个 patch 记为父版本。然后 MA 实际执行回滚，响应 metadata 明确切回第一个 patch，第一条规则仍能被答出。\n\n这张图是同一次真实运行的状态链：\n\n不是“模型说自己记住了”，而是 source、patch、挂载状态和回滚状态都能复查。完整 JSON 记录、限制说明和复跑脚本在：\nhttps://github.com/zimoos/ma-showcase/tree/main/demos/03-memorypatch-proof\n\n它不证明三件事：\n\n1. 不是无限上下文，模型的上下文窗口仍然有限。\n2. 不是本地模型普遍超过云端模型。更难的开放世界交付任务，我这里的本地模型也没有在预算内完成。\n3. 这次只验证两条合成规则，不等于已经解决复杂项目的所有记忆问题。\n\n但它让我更确定 MA 的方向：本地模型不该每天重新入职。对于你明确批准、能追溯来源、能验收和能回滚的项目习惯，它应该有机会成为一个版本化的本地资产。\n\n对实际开发者来说，最先值得放进去的不是“把整份代码库背下来”，而是会反复踩坑的工作规则：改 bug 必须补回归、前端交付必须跑真实点击路径、发布前必须通过哪组检查。\n\nMA 主仓：\nhttps://github.com/zimoos/my-agent\n\n你的本地 Agent 最该停止忘记的那一条项目规则是什么？请写成“规则 + 它上次忘了以后造成的结果”。我会把最典型的案例转成可复现的验收任务。"
+    },
+    "douyin": {
+      "caption": "本地 AI 每次开新会话，都像第一天入职。\n\n我没有让它背更长的提示词，而是用 MA 跑了一次真实本地记忆：未挂载 -> 生成 patch -> 准确回答 -> 第二个版本 -> 回滚到第一个版本。每一步都有 runtime metadata，不靠模型自己说“我记住了”。\n\n这不是无限上下文，也不是小模型全面超越云端。它只证明一件事：经过批准、可追溯、能回退的项目规则，可以不必每次重新塞进提示词。\n\n完整证据和复跑脚本：github.com/zimoos/ma-showcase\n\n#AI编程 #本地大模型 #开源项目 #CodingAgent #软件工程"
+    },
+    "youtube": {
+      "title": "Your Local AI Should Not Start Its First Day Every Session",
+      "description": "MA is a local-first coding agent that leaves evidence in a repository. In this real local run, a synthetic project rule moved through an unmounted session, a metadata-verified MemoryPatch, a second version, and a rollback to the first version. This is not an unlimited-context or general-intelligence claim. The raw evidence, limits, and rerun script are public: https://github.com/zimoos/ma-showcase/tree/main/demos/03-memorypatch-proof\n\nMA: https://github.com/zimoos/my-agent"
+    }
+  }
+}
