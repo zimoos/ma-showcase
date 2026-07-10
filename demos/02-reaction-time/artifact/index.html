@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reaction Time Game</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1a1a2e;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    user-select: none;
+  }
+
+  #game-panel {
+    width: 520px;
+    min-height: 380px;
+    border-radius: 18px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 48px;
+    text-align: center;
+    transition: background 0.3s ease;
+    cursor: pointer;
+    border: 2px solid #2a2a4a;
+  }
+
+  #game-panel.waiting {
+    background: #16213e;
+  }
+
+  #game-panel.go {
+    background: #0f7b3a;
+    cursor: default;
+  }
+
+  #game-panel.too-early {
+    background: #8b0000;
+  }
+
+  #game-panel.result {
+    background: #1a1a2e;
+    cursor: pointer;
+  }
+
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #e94560;
+  }
+
+  p.instruction {
+    font-size: 1.15rem;
+    color: #a0a0b8;
+    line-height: 1.6;
+  }
+
+  .score-display {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #00d2ff;
+  }
+
+  .score-label {
+    font-size: 1rem;
+    color: #8888a8;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  button {
+    padding: 14px 36px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  button:hover {
+    transform: scale(1.04);
+    box-shadow: 0 4px 20px rgba(233, 69, 96, 0.4);
+  }
+
+  button:active {
+    transform: scale(0.97);
+  }
+
+  #start-btn {
+    background: #e94560;
+    color: #fff;
+  }
+
+  #play-again-btn {
+    background: #00d2ff;
+    color: #1a1a2e;
+  }
+
+  .history {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 400px;
+  }
+
+  .history .round {
+    background: #2a2a4a;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #a0a0b8;
+  }
+
+  .history .round span {
+    color: #00d2ff;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<div id="game-panel" class="waiting">
+  <h1>⚡ Reaction Time</h1>
+  <p class="instruction">Click <strong>Start</strong> and wait for the panel to turn <strong style="color:#0f7b3a">green</strong>.<br>Click as fast as you can!</p>
+  <button id="start-btn">Start</button>
+</div>
+
+<script>
+(function () {
+  const panel = document.getElementById('game-panel');
+  const startBtn = document.getElementById('start-btn');
+  let timer = null;
+  let startTime = 0;
+  let rounds = [];
+  let state = 'idle'; // idle, waiting, go, too-early, result
+
+  function resetUI() {
+    panel.className = 'waiting';
+    panel.innerHTML = '';
+
+    const h1 = document.createElement('h1');
+    h1.textContent = '⚡ Reaction Time';
+    panel.appendChild(h1);
+
+    const p = document.createElement('p');
+    p.className = 'instruction';
+    p.innerHTML = 'Click <strong>Start</strong> and wait for the panel to turn <strong style="color:#0f7b3a">green</strong>.<br>Click as fast as you can!';
+    panel.appendChild(p);
+
+    startBtn.textContent = 'Start';
+    startBtn.style.display = '';
+    panel.appendChild(startBtn);
+
+    if (rounds.length > 0) {
+      const hist = document.createElement('div');
+      hist.className = 'history';
+      rounds.forEach((r, i) => {
+        const rd = document.createElement('div');
+        rd.className = 'round';
+        rd.innerHTML = `Round ${i + 1}: <span>${r}ms</span>`;
+        hist.appendChild(rd);
+      });
+      panel.appendChild(hist);
+    }
+
+    state = 'idle';
+  }
+
+  function startGame() {
+    resetUI();
+    const delay = 1500 + Math.random() * 3500; // 1.5s ~ 5s
+    timer = setTimeout(() => {
+      panel.className = 'go';
+      startTime = Date.now();
+      state = 'go';
+    }, delay);
+  }
+
+  function handleClick() {
+    if (state === 'idle') {
+      startGame();
+      return;
+    }
+
+    if (state === 'waiting') {
+      clearTimeout(timer);
+      panel.className = 'too-early';
+      const p = document.createElement('p');
+      p.className = 'instruction';
+      p.textContent = 'Too early! Click to try again.';
+      panel.appendChild(p);
+      state = 'too-early';
+      return;
+    }
+
+    if (state === 'go') {
+      const elapsed = Date.now() - startTime;
+      rounds.push(elapsed);
+      panel.className = 'result';
+
+      const label = document.createElement('p');
+      label.className = 'score-label';
+      label.textContent = 'Your Reaction Time';
+      panel.appendChild(label);
+
+      const score = document.createElement('div');
+      score.className = 'score-display';
+      score.textContent = elapsed + ' ms';
+      panel.appendChild(score);
+
+      const againBtn = document.createElement('button');
+      againBtn.id = 'play-again-btn';
+      againBtn.textContent = 'Play Again';
+      againBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        startGame();
+      });
+      panel.appendChild(againBtn);
+
+      // Show history
+      if (rounds.length > 1) {
+        const hist = document.createElement('div');
+        hist.className = 'history';
+        rounds.forEach((r, i) => {
+          const rd = document.createElement('div');
+          rd.className = 'round';
+          rd.innerHTML = `Round ${i + 1}: <span>${r}ms</span>`;
+          hist.appendChild(rd);
+        });
+        panel.appendChild(hist);
+      }
+
+      state = 'result';
+      return;
+    }
+
+    if (state === 'too-early') {
+      startGame();
+      return;
+    }
+
+    if (state === 'result') {
+      startGame();
+      return;
+    }
+  }
+
+  panel.addEventListener('click', handleClick);
+})();
+</script>
+
+</body>
+</html>
