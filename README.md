@@ -1,13 +1,13 @@
 # MA Showcase
 
-Real, reproducible demos made by [MA](https://github.com/zimoos/my-agent) with the Agora local runtime.
+Real, reproducible demos showing [MA](https://github.com/zimoos/my-agent) turn a prompt into a verified result. MA is a coding agent that works in a repository, runs what it produced, and keeps the evidence.
 
-![MA and Agora create and verify a real artifact](recordings/01-terminal-status.gif)
+![MA creates and verifies a real artifact](recordings/01-terminal-status.gif)
 
 Each demo keeps four things together:
 
 1. The prompt and task boundary.
-2. The command used to run MA with Agora.
+2. The exact command used to run MA.
 3. The generated artifact and a direct verification step.
 4. A terminal recording made from that same command.
 
@@ -17,8 +17,8 @@ This repository does not use synthetic agent output or staged completion claims.
 
 | Demo | What it proves | Artifact |
 | --- | --- | --- |
-| [01 Terminal Status](demos/01-terminal-status/) | MA + Agora can create and verify a standalone UI artifact through its filesystem tool. | `artifact/index.html` |
-| [02 Reaction Time](demos/02-reaction-time/) | MA + Agora can build a browser interaction, then a real browser test reaches its result state. | `artifact/index.html` |
+| [01 Terminal Status](demos/01-terminal-status/) | MA creates and verifies a standalone UI artifact through its filesystem tool. | `artifact/index.html` |
+| [02 Reaction Time](demos/02-reaction-time/) | MA builds a browser interaction, then a real browser test reaches its result state. | `artifact/index.html` |
 
 ### 02 Reaction Time
 
@@ -32,7 +32,7 @@ The artifact, browser recording, and verifier are committed together. The GIF sh
 
 ## Run Locally
 
-The examples require an MA installation and an Agora checkout containing a downloaded supported model.
+The recorded runs use MA with an Agora local setup. That runtime detail is only needed when reproducing this exact environment; the user-facing proof remains the same: MA created a real artifact and the browser verified it.
 
 ```bash
 AGORA_ROOT=/path/to/agora bash demos/01-terminal-status/run.sh

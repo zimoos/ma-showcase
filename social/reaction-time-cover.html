@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MA reaction-time cover</title>
+    <style>
+      * { box-sizing: border-box; }
+      body {
+        align-items: center;
+        background-color: #111827;
+        background-image: linear-gradient(#243047 1px, transparent 1px), linear-gradient(90deg, #243047 1px, transparent 1px);
+        background-size: 32px 32px;
+        color: #f8fafc;
+        display: flex;
+        font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        height: 630px;
+        justify-content: center;
+        margin: 0;
+        overflow: hidden;
+        width: 1200px;
+      }
+      main { display: grid; gap: 36px; grid-template-columns: 1.05fr .95fr; padding: 58px 74px; width: 100%; }
+      .eyebrow { color: #67e8f9; font-size: 20px; font-weight: 800; letter-spacing: 2px; margin: 0 0 18px; }
+      h1 { font-size: 52px; letter-spacing: 0; line-height: 1.1; margin: 0; }
+      p { color: #cbd5e1; font-size: 22px; line-height: 1.5; margin: 20px 0 0; }
+      strong { color: #a3e635; }
+      .proof { align-items: center; background: #0b1020; border: 2px solid #334155; border-radius: 12px; display: flex; justify-content: center; padding: 18px; }
+      .proof img { display: block; max-height: 420px; max-width: 100%; object-fit: contain; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <p class="eyebrow">MA / 真实任务验收</p>
+        <h1>我让一个 AI 自己把小游戏做出来，然后让浏览器当裁判</h1>
+        <p>不是“代码写完了”。<strong>浏览器真的点到了结果页。</strong></p>
+      </section>
+      <section class="proof">
+        <img src="./assets/reaction-time-result.png" alt="浏览器验收结果，显示 42 ms 和 Play Again">
+      </section>
+    </main>
+  </body>
+</html>

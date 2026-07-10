@@ -1,6 +1,6 @@
 # Social Assets
 
-This directory holds platform-ready assets built only from real MA + Agora evidence. The vertical short combines the actual `fs__write_file` recording with a Playwright-run interaction of the generated reaction-time game.
+This directory holds platform-ready assets built only from real MA evidence. The vertical short combines the actual `fs__write_file` recording with a Playwright-run interaction of the generated reaction-time game.
 
 ## Build
 
@@ -20,13 +20,13 @@ The result is `social/ma-agora-reaction-short.mp4`: 1080x1920, no audio, and sui
 
 **Description**:
 
-> This is a real local MA + Agora run, not a staged trailer. The agent used a filesystem tool to create a reaction-time game, then a browser test clicked through to a measured result. Prompt, generated artifact, GIF, and verifier: https://github.com/zimoos/ma-showcase
+> MA is a coding agent that works in a repository and proves the result. This is a real run, not a staged trailer: MA used a filesystem tool to create a reaction-time game, then a browser test clicked through to a measured result. Prompt, generated artifact, GIF, and verifier: https://github.com/zimoos/ma-showcase
 
 ### Douyin
 
 **Caption**:
 
-> 我给本地 Coding Agent 出了一道题：做一个能玩的小游戏，然后让浏览器当裁判。它调用文件工具写出页面，浏览器真实点击后进入结果态。提示词、生成物和验收脚本全部开源：github.com/zimoos/ma-showcase
+> 我让一个 AI 自己做了个小游戏，然后没相信它的“完成了”。我让浏览器去点，只有真的出现结果页才算过。MA 是个能在仓库里动手干活的 Coding Agent，提示词、生成物和验收脚本都开源：github.com/zimoos/ma-showcase
 
 **Hashtags**: `#AI编程 #本地大模型 #开源项目 #CodingAgent`
 

@@ -23,6 +23,11 @@ const required = [
   ["douyin.caption", manifest.platforms?.douyin?.caption],
   ["youtube.title", manifest.platforms?.youtube?.title],
   ["youtube.description", manifest.platforms?.youtube?.description],
+  ["marketing.audience", manifest.marketing?.audience],
+  ["marketing.title_hook", manifest.marketing?.title_hook],
+  ["marketing.retention_proof", manifest.marketing?.retention_proof],
+  ["marketing.comment_prompt", manifest.marketing?.comment_prompt],
+  ["marketing.star_conversion", manifest.marketing?.star_conversion],
 ];
 
 const missing = required.filter(([, value]) => !value).map(([name]) => name);
@@ -81,6 +86,11 @@ if (copyFlag) {
 }
 
 console.log(`${manifest.id}\n`);
+console.log(`Audience: ${manifest.marketing.audience}`);
+console.log(`Why stop: ${manifest.marketing.title_hook}`);
+console.log(`Why stay: ${manifest.marketing.retention_proof}`);
+console.log(`Why comment: ${manifest.marketing.comment_prompt}`);
+console.log(`GitHub conversion: ${manifest.marketing.star_conversion}\n`);
 console.log("Five-minute release order:");
 console.log(`1. Zhihu: ${manifest.platforms.zhihu.title}`);
 console.log(`   cover: ${manifest.assets.cover}`);

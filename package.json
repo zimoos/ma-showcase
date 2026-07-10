@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "verify:reaction": "node demos/02-reaction-time/verify.mjs",
+    "render:cover": "node social/render-reaction-cover.mjs",
     "publish:check": "node social/publish-flow.mjs social/releases/reaction-time.json --check",
     "publish:brief": "node social/publish-flow.mjs social/releases/reaction-time.json"
   },
