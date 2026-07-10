@@ -26,6 +26,10 @@ This repository does not use synthetic agent output or staged completion claims.
 
 The artifact, browser recording, and verifier are committed together. The GIF shows a Playwright-run browser opening the generated game, waiting for its live "go" state, clicking the panel, and reaching the result screen.
 
+## Shareable Evidence
+
+[Vertical short video](social/ma-agora-reaction-short.mp4) packages the actual tool-call evidence and browser result into an 11-second 1080x1920 clip. It is ready for YouTube Shorts and Douyin; [posting copy and the reproducible render script](social/) are included.
+
 ## Run Locally
 
 The examples require an MA installation and an Agora checkout containing a downloaded supported model.
